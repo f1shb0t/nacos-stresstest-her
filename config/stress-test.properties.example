@@ -1,0 +1,84 @@
+# =============================================================================
+# Nacos Stress Test Configuration
+# =============================================================================
+# Copy this file to stress-test.properties and adjust values for your environment.
+
+# -----------------------------------------------------------------------------
+# Nacos Server Connection
+# -----------------------------------------------------------------------------
+# Nacos server address (host:port). For cluster, use comma-separated list.
+nacos.server.addr=127.0.0.1:8848
+
+# Nacos namespace (default: public)
+nacos.namespace=public
+
+# Nacos authentication (leave empty if auth is disabled)
+nacos.username=nacos
+nacos.password=nacos
+
+# -----------------------------------------------------------------------------
+# Test Parameters
+# -----------------------------------------------------------------------------
+# Type of stress test to run: config, naming, both
+test.type=config
+
+# Number of concurrent threads
+test.threads=10
+
+# Total number of operations to perform (0 = unlimited, use duration instead)
+test.operations=1000
+
+# Test duration in seconds (0 = unlimited, use operations count instead)
+test.duration=60
+
+# Ramp-up period in seconds (gradually increase threads over this period)
+test.rampup=5
+
+# -----------------------------------------------------------------------------
+# Config Service Test Parameters
+# -----------------------------------------------------------------------------
+# Data ID prefix for config entries
+config.dataId.prefix=stress-test-config
+
+# Group name for config entries
+config.group=STRESS_TEST
+
+# Number of unique config entries to use
+config.count=100
+
+# Config content size in bytes
+config.content.size=1024
+
+# Operation mix ratio (read:write:listen) - must sum to 100
+config.ratio.read=70
+config.ratio.write=20
+config.ratio.listen=10
+
+# -----------------------------------------------------------------------------
+# Naming Service Test Parameters
+# -----------------------------------------------------------------------------
+# Service name prefix
+naming.service.prefix=stress-test-service
+
+# Number of unique services to register
+naming.service.count=50
+
+# Number of instances per service
+naming.instance.count=10
+
+# Operation mix ratio (register:deregister:query) - must sum to 100
+naming.ratio.register=40
+naming.ratio.deregister=20
+naming.ratio.query=40
+
+# -----------------------------------------------------------------------------
+# Reporting
+# -----------------------------------------------------------------------------
+# Enable HTML report generation
+report.enabled=true
+
+# Report output file path
+report.output=stress-test-report.html
+
+# Print periodic stats to console every N seconds
+report.interval=5

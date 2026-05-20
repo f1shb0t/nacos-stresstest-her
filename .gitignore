@@ -1,0 +1,24 @@
+# Build output
+target/
+
+# Compiled classes
+*.class
+
+# Package files (keep jars in lib/)
+*.jar
+!lib/*.jar
+
+# IDE - IntelliJ
+.idea/
+*.iml
+
+# IDE - Eclipse
+.settings/
+.project
+.classpath
+
+# Logs
+*.log
+
+# Stress test reports
+stress-test-report*.html
