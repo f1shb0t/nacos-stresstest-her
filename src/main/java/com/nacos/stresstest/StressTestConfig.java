@@ -21,6 +21,15 @@ public class StressTestConfig {
     private int reportIntervalSeconds = 5;
     private String outputFile = "stress-test-report.html";
 
+    // --- New parameters ---
+    private int clientPoolSize = 50;
+    private long thinkTimeMs = 100;
+    private long maxThinkTimeMs = 500;
+    private boolean jitterEnabled = true;
+    private boolean uniqueNamespacePerClient = false;
+    private int connectionTimeoutMs = 5000;
+    private int requestTimeoutMs = 3000;
+
     public String getServerAddr() {
         return serverAddr;
     }
@@ -133,6 +142,62 @@ public class StressTestConfig {
         this.reportIntervalSeconds = reportIntervalSeconds;
     }
 
+    public int getClientPoolSize() {
+        return clientPoolSize;
+    }
+
+    public void setClientPoolSize(int clientPoolSize) {
+        this.clientPoolSize = clientPoolSize;
+    }
+
+    public long getThinkTimeMs() {
+        return thinkTimeMs;
+    }
+
+    public void setThinkTimeMs(long thinkTimeMs) {
+        this.thinkTimeMs = thinkTimeMs;
+    }
+
+    public long getMaxThinkTimeMs() {
+        return maxThinkTimeMs;
+    }
+
+    public void setMaxThinkTimeMs(long maxThinkTimeMs) {
+        this.maxThinkTimeMs = maxThinkTimeMs;
+    }
+
+    public boolean isJitterEnabled() {
+        return jitterEnabled;
+    }
+
+    public void setJitterEnabled(boolean jitterEnabled) {
+        this.jitterEnabled = jitterEnabled;
+    }
+
+    public boolean isUniqueNamespacePerClient() {
+        return uniqueNamespacePerClient;
+    }
+
+    public void setUniqueNamespacePerClient(boolean uniqueNamespacePerClient) {
+        this.uniqueNamespacePerClient = uniqueNamespacePerClient;
+    }
+
+    public int getConnectionTimeoutMs() {
+        return connectionTimeoutMs;
+    }
+
+    public void setConnectionTimeoutMs(int connectionTimeoutMs) {
+        this.connectionTimeoutMs = connectionTimeoutMs;
+    }
+
+    public int getRequestTimeoutMs() {
+        return requestTimeoutMs;
+    }
+
+    public void setRequestTimeoutMs(int requestTimeoutMs) {
+        this.requestTimeoutMs = requestTimeoutMs;
+    }
+
     public String getOutputFile() {
         return outputFile;
     }
@@ -158,6 +223,13 @@ public class StressTestConfig {
                 ", rampUpSeconds=" + rampUpSeconds +
                 ", reportIntervalSeconds=" + reportIntervalSeconds +
                 ", outputFile='" + outputFile + '\'' +
+                ", clientPoolSize=" + clientPoolSize +
+                ", thinkTimeMs=" + thinkTimeMs +
+                ", maxThinkTimeMs=" + maxThinkTimeMs +
+                ", jitterEnabled=" + jitterEnabled +
+                ", uniqueNamespacePerClient=" + uniqueNamespacePerClient +
+                ", connectionTimeoutMs=" + connectionTimeoutMs +
+                ", requestTimeoutMs=" + requestTimeoutMs +
                 '}';
     }
 }

@@ -60,10 +60,34 @@ java -jar target/nacos-stresstest-1.0.0.jar \
   --content-size 2048 \
   --ramp-up 5 \
   --report-interval 5 \
+  --client-pool 50 \
+  --think-time 100 \
+  --max-think-time 500 \
   --output report.html
 ```
 
+### 4. 高并发仿真示例（模拟3000台机器）
+
+```bash
+java -Xmx8g -Xss512k -XX:+UseG1GC \
+  -jar target/nacos-stresstest-1.0.0.jar \
+  -s nacos-cluster.internal:8848 \
+  -t 3000 \
+  --client-pool 200 \
+  --configs 500 \
+  -d 300 \
+  -r 80 \
+  --think-time 100 \
+  --max-think-time 500 \
+  --warmup 15 \
+  --ramp-up 30 \
+  --content-size 2048 \
+  -o high-concurrency-report.html
+```
+
 ## 参数说明
+
+### 基础参数
 
 | 参数 | 短参数 | 说明 | 默认值 |
 |------|--------|------|--------|
@@ -82,6 +106,19 @@ java -jar target/nacos-stresstest-1.0.0.jar \
 | `--report-interval` | | 报告采样间隔（秒） | `5` |
 | `--output` | `-o` | 报告输出路径 | `stress-test-report.html` |
 | `--help` | `-h` | 打印帮助信息 | - |
+
+### 仿真参数
+
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `--client-pool` | 模拟独立客户端数（独立连接） | `50` |
+| `--think-time` | 操作间最小思考时间（毫秒） | `100` |
+| `--max-think-time` | 操作间最大思考时间（毫秒） | `500` |
+| `--no-jitter` | 禁用随机抖动（默认开启） | 开启 |
+| `--conn-timeout` | 连接超时（毫秒） | `5000` |
+| `--req-timeout` | 请求超时（毫秒） | `3000` |
+
+> **仿真说明**：`--client-pool 200 --threads 3000` 表示模拟 200 台独立机器，每台机器约 15 个并发线程访问配置。读操作遵循 Zipf 分布（20% 热点配置承受 80% 读流量），更贴近生产环境。
 
 ## 压测流程
 

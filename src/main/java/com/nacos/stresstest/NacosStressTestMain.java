@@ -21,6 +21,11 @@ public class NacosStressTestMain {
 
         logger.info("=== Nacos Stress Test ===");
         logger.info("Configuration: {}", config);
+        logger.info("  Client Pool Size: {}", config.getClientPoolSize());
+        logger.info("  Think Time: {}-{} ms", config.getThinkTimeMs(), config.getMaxThinkTimeMs());
+        logger.info("  Jitter Enabled: {}", config.isJitterEnabled());
+        logger.info("  Connection Timeout: {} ms", config.getConnectionTimeoutMs());
+        logger.info("  Request Timeout: {} ms", config.getRequestTimeoutMs());
 
         MetricsCollector metrics = new MetricsCollector();
         StressTestRunner runner = new StressTestRunner(config, metrics);
@@ -123,6 +128,24 @@ public class NacosStressTestMain {
             if (cmd.hasOption("o")) {
                 config.setOutputFile(cmd.getOptionValue("o"));
             }
+            if (cmd.hasOption("client-pool")) {
+                config.setClientPoolSize(Integer.parseInt(cmd.getOptionValue("client-pool")));
+            }
+            if (cmd.hasOption("think-time")) {
+                config.setThinkTimeMs(Integer.parseInt(cmd.getOptionValue("think-time")));
+            }
+            if (cmd.hasOption("max-think-time")) {
+                config.setMaxThinkTimeMs(Integer.parseInt(cmd.getOptionValue("max-think-time")));
+            }
+            if (cmd.hasOption("no-jitter")) {
+                config.setJitterEnabled(false);
+            }
+            if (cmd.hasOption("conn-timeout")) {
+                config.setConnectionTimeoutMs(Integer.parseInt(cmd.getOptionValue("conn-timeout")));
+            }
+            if (cmd.hasOption("req-timeout")) {
+                config.setRequestTimeoutMs(Integer.parseInt(cmd.getOptionValue("req-timeout")));
+            }
 
             return config;
 
@@ -170,6 +193,18 @@ public class NacosStressTestMain {
                 .desc("Report interval in seconds (default: 5)").build());
         options.addOption(Option.builder("o").longOpt("output").hasArg()
                 .desc("Output report file path (default: stress-test-report.html)").build());
+        options.addOption(Option.builder().longOpt("client-pool").hasArg()
+                .desc("Number of simulated independent clients (default: 50)").build());
+        options.addOption(Option.builder().longOpt("think-time").hasArg()
+                .desc("Min think time between ops in ms (default: 100)").build());
+        options.addOption(Option.builder().longOpt("max-think-time").hasArg()
+                .desc("Max think time between ops in ms (default: 500)").build());
+        options.addOption(Option.builder().longOpt("no-jitter")
+                .desc("Disable random jitter").build());
+        options.addOption(Option.builder().longOpt("conn-timeout").hasArg()
+                .desc("Connection timeout in ms (default: 5000)").build());
+        options.addOption(Option.builder().longOpt("req-timeout").hasArg()
+                .desc("Request timeout in ms (default: 3000)").build());
         options.addOption(Option.builder("h").longOpt("help")
                 .desc("Print this help message").build());
 
